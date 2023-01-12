@@ -1,0 +1,62 @@
+
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+
+vector<int> dp;
+vector<bool> mal(10,false);
+
+bool check(int now){ //now 값 확인하기
+
+    string s = to_string(now);
+    for(int i = 0; i <s.length();i++){
+        if(mal[s[i]-48]){ //mal[s[i]-48]이면 실패
+            return false;
+        }
+
+    }
+
+    return true; //mal[s[i]-48]이 아니면 참
+
+}
+
+
+
+int main(){
+
+    int n,c; 
+    cin>>n>>c; //n,c 입력받기
+
+    int tmp;
+
+    for(int i = 0; i < c; i++){
+        cin>>tmp;
+        mal[tmp] = true;
+    }
+
+
+    string st = to_string(n); // 문자열 받기
+
+    int minimum = abs(n-100); 
+    for(int i = 0; i <= 1000000; i++){
+        if(check(i)){
+            int tmp = abs(n-i)+to_string(i).length();
+            minimum = min(minimum,tmp);
+        }
+
+    }
+
+
+    cout<<minimum<<endl; //최소 버튼 클릭수 출력
+
+
+    return 0;
+}
+
+//시간복잡도 : o(1)
+//공간복잡도: 모르겠음
